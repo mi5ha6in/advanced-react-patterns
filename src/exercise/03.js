@@ -4,7 +4,6 @@
 import * as React from 'react'
 import {Switch} from '../switch'
 
-
 const ToggleContext = React.createContext()
 
 function Toggle({children}) {
@@ -19,7 +18,11 @@ function Toggle({children}) {
 }
 
 function useToggle() {
-  return React.useContext(ToggleContext)
+  const context = React.useContext(ToggleContext)
+  if (context === undefined) {
+    throw new Error('useToggle must be used within a <Toggle>')
+  }
+  return context
 }
 
 function ToggleOn({children}) {
